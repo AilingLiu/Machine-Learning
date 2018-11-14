@@ -1,3 +1,6 @@
+#Gradient Descent for Linear Regression
+##using Gradient Descent to find optimal intercept and slope.
+
 def get_gradient_at_b(x, y, b, m):
   N = len(x)
   diff = 0
