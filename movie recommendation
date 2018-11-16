@@ -10,16 +10,28 @@ def distance(movie1, movie2):
   final_distance = squared_difference ** 0.5
   return final_distance
 
-def classify(unknown, dataset, k):
+def classify(unknown, dataset, labels, k):
   distances = []
-  
-  
+  #Looping through all points in the dataset
   for title in dataset:
-    distance_to_point = distance(unknown, dataset[title])
+    movie = dataset[title]
+    distance_to_point = distance(movie, unknown)
+    #Adding the distance and point associated with that distance
     distances.append([distance_to_point, title])
-    distances.sort()
-  	
-  neighbors = distances[:k]  
-  return neighbors
+  distances.sort()
+  #Taking only the k closest points
+  neighbors = distances[0:k]
+  
+  num_good = 0
+  num_bad = 0
+  title = []
+  for i in neighbors:
+    title = i[1]
+    if labels[title] == 0:
+      num_bad += 1
+    else:
+      num_good += 1
 
-print(classify([.4, .2, .9], movie_dataset, 5))
+  return int(num_good > num_bad)
+
+print(classify([.4, .2, .9], movie_dataset, movie_labels, 5))
